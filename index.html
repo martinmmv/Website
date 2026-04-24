@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mmvdatascience – Martin Milon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ========================= -->
+  <!-- Hero Header -->
+  <!-- ========================= -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Martin Milon</h1>
+      <h2>Data Science, Economics & Political Science</h2>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="cv_martin_milon_2025.pdf" class="btn-secondary" download>Download CV (PDF)</a>
+      </div>
+
+      <button id="theme-toggle" class="theme-toggle">🌙 Dark mode</button>
+    </div>
+  </header>
+
+  <!-- ========================= -->
+  <!-- Navigation -->
+  <!-- ========================= -->
+  <nav class="navbar">
+    <button id="menu-toggle" class="menu-toggle">☰ Menu</button>
+    <ul id="nav-links" class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========================= -->
+  <!-- Main Content -->
+  <!-- ========================= -->
+  <main class="container">
+
+    <!-- About -->
+    <section id="about" class="section-card">
+      <h2>About Me</h2>
+      <p>
+        I am currently pursuing an M.S. in Data Science at the New York Institute of Technology, and I hold a B.A. in Economics and Political Science from Stony Brook University. My main interests are
+        machine learning and data analysis.
+      </p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section-card">
+      <h2>Projects</h2>
+
+      <div class="projects-grid">
+
+        <article class="project-card">
+          <h3>Fraud Detection (ML)</h3>
+          <p>
+            Supervised classification project using Python to identify potentially fraudulent transactions.
+            Includes data cleaning, feature engineering, and model comparison (Logistic Regression, Random Forest).
+          </p>
+          <div class="tags">
+            <span>Python</span><span>scikit-learn</span><span>Fraud Analytics</span>
+          </div>
+          <a href="https://github.com/martinmmv/Fraud-Detection" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- UN Refugee Data Finder -->
+        <article class="project-card">
+          <h3>UN Refugee Data Finder</h3>
+          <p>
+            Exploring data from the United Nations Refugee Data Finder tool. Includes country-level analysis,
+            regional trends, and data cleaning for migration and asylum indicators.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>Pandas</span><span>UNHCR</span>
+          </div>
+          <a href="https://github.com/martinmmv/UN-Refugee-Data-Finder" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- World Bank Population Data -->
+        <article class="project-card">
+          <h3>World Bank Population Data</h3>
+          <p>
+            Exploring global population trends using World Bank data. Includes indicators, transformations, and
+            visualization of demographic patterns across regions.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>World Bank API</span><span>Data Analysis</span>
+          </div>
+          <a href="https://github.com/martinmmv/World-Bank-Population-Data" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- Wave Data Cluster Analysis -->
+        <article class="project-card">
+          <h3>Wave Data Cluster Analysis</h3>
+          <p>
+            Compared K-Means, Hierarchical, and DBSCAN clustering using Silhouette Score, Adjusted Rand Index (ARI), 
+            and Normalized Mutual Information (NMI).
+          </p>
+          <div class="tags">
+            <span>Python</span><span>Clustering</span><span>scikit-learn</span>
+          </div>
+          <a href="https://github.com/martinmmv/Wave-Data-Cluster-Analysis" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- NYC Limited English Proficient Data -->
+        <article class="project-card">
+          <h3>NYC LEP Population Data</h3>
+          <p>
+            Analysis of Census-based data on over 1.7 million limited English proficient (LEP) residents.
+            Includes demographic segmentation and language-access insights.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>Census ACS</span><span>Data Analysis</span>
+          </div>
+          <a href="https://github.com/martinmmv/NYC-Limited-English-Proficient-Data" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- Zillow Home Value Index -->
+        <article class="project-card">
+          <h3>Zillow Home Value Index (ZHVI)</h3>
+          <p>
+            Exploring the Zillow Home Value Index (ZHVI), analyzing typical home values and market changes across
+            regions and housing types using time-series trends.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>Time Series</span><span>Zillow</span>
+          </div>
+          <a href="https://github.com/martinmmv/Zillow-Home-Value-Index" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- United Nations M49 Codes -->
+        <article class="project-card">
+          <h3>United Nations M49 Regions</h3>
+          <p>
+            Standard country and area codes (M49) used for statistical analysis and geographic classification.
+            Includes region mapping and categorical encoding for ML workflows.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>UN Statistics</span><span>Data Cleaning</span>
+          </div>
+          <a href="https://github.com/martinmmv/United-Nations-M49" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+
+        <!-- NYC DHS Shelter Data -->
+        <article class="project-card">
+          <h3>NYC DHS Shelter Data</h3>
+          <p>
+            Analysis of data from the NYC DHS Shelter System, including trends, occupancy breakdowns, and
+            visualization of demographic patterns using open-data sources.
+          </p>
+          <div class="tags">
+            <span>Python</span><span>NYC Open Data</span><span>Data Analysis</span>
+          </div>
+          <a href="https://github.com/martinmmv/NYC-DHS-Shelter-Data" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
+        </article>
+  
+        <!-- You can add more project-card blocks here -->
+      </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section id="contact" class="section-card">
+      <h2>Contact</h2>
+      <p>Email:
+        <a href="mailto:martinmilonvelarde@gmail.com">martinmilonvelarde@gmail.com</a>
+      </p>
+      <p>LinkedIn:
+        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">linkedin.com/in/martin-milon/</a>
+      </p>
+      <p>GitHub:
+        <a href="https://github.com/martinmmv" target="_blank">github.com/martinmmv</a>
+      </p>
+    </section>
+
+    <!-- Download CV -->
+    <section id="download" class="section-card download-card">
+      <h2>CV</h2>
+      <p>You can download a full version of my curriculum vitae here:</p>
+      <a href="cv_martin_milon_2025.pdf" download class="btn-primary">
+        Download CV (PDF)
+      </a>
+    </section>
+
+    <!-- Contact Form (Netlify) -->
+    <section id="form" class="section-card">
+      <h2>Contact Me</h2>
+      <form name="contact" method="POST" action="/thank-you.html"
+            data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden>
+          <label>Don’t fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Your name" required />
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="name@example.com" required />
+
+        <label for="message">Message</label>
+        <textarea name="message" id="message" placeholder="How can I help you?" required></textarea>
+
+        <button type="submit" class="btn-primary">Send</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ========================= -->
+  <!-- JavaScript -->
+  <!-- ========================= -->
+  <script src="script.js"></script>
+</body>
+</html>

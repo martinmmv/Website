@@ -1,0 +1,562 @@
+/* =======================================
+   RESET / BASE
+======================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg: #020617;              /* deep slate */
+  --bg-alt: #0b1220;
+  --card-bg: #020617;
+  --card-border: #1e293b;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+
+  /* 🌿 light green accent palette */
+  --accent: #4ade80;                         /* green-400 */
+  --accent-soft: rgba(74, 222, 128, 0.16);   /* soft mint */
+  --accent-strong: #22c55e;                  /* green-500 */
+
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+  --code-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(74, 222, 128, 0.22), transparent 60%),
+    radial-gradient(circle at bottom, rgba(5, 46, 22, 0.55), transparent 55%),
+    #020617;
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* subtle “grid” vibe */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: linear-gradient(
+      to right,
+      rgba(148, 163, 184, 0.16) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(148, 163, 184, 0.16) 1px,
+      transparent 1px
+    );
+  background-size: 40px 40px;
+  z-index: -1;
+}
+
+/* Light mode version (when .dark is OFF) */
+body:not(.dark) {
+  --bg: #f5f5f7;
+  --bg-alt: #e5e7eb;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --text: #020617;
+  --muted: #4b5563;
+
+  /* 🌿 light green accents for light mode */
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.18);
+  --accent-strong: #16a34a;
+
+  --shadow-soft: 0 14px 35px rgba(15, 23, 42, 0.16);
+}
+
+body:not(.dark) {
+  background:
+    radial-gradient(circle at top, rgba(74, 222, 128, 0.18), transparent 60%),
+    #f4f4f5;
+  color: var(--text);
+}
+
+body.dark {
+  /* variables already set for dark; keep background defined above */
+}
+
+/* =======================================
+   HERO (DATA SCIENCE LANDING)
+======================================= */
+.hero {
+  padding: 4.5rem 1.5rem 3.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero::after {
+  /* subtle chart-ish accent line */
+  content: "";
+  position: absolute;
+  inset-inline: 50%;
+  transform: translateX(-50%);
+  bottom: 1.5rem;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    var(--accent-strong),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 2.7rem;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--code-font);
+}
+
+.hero h2 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero p {
+  margin-top: 1.4rem;
+  font-size: 0.98rem;
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--muted);
+}
+
+/* =======================================
+   BUTTONS (ACTIONS)
+======================================= */
+.btn-primary,
+.btn-secondary,
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.7rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  font-family: var(--code-font);
+}
+
+.hero-actions {
+  margin-top: 1.8rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #020617;
+  box-shadow: 0 12px 30px rgba(4, 46, 22, 0.55);
+  margin-right: 0.6rem;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(4, 46, 22, 0.8);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+}
+
+.btn-secondary:hover {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+/* generic button (forms) */
+button {
+  background: #0f172a;
+  color: #e5e7eb;
+  box-shadow: none;
+}
+
+button:hover {
+  background: #020617;
+}
+
+/* theme toggle */
+.theme-toggle {
+  margin-top: 1.4rem;
+  font-size: 0.82rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: var(--muted);
+}
+
+.theme-toggle:hover {
+  background: rgba(148, 163, 184, 0.14);
+}
+
+/* =======================================
+   NAVBAR
+======================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.45);
+  padding: 0.4rem 1rem;
+}
+
+body:not(.dark) .navbar {
+  background: rgba(248, 250, 252, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.5);
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  text-align: center;
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+.nav-links li {
+  margin: 0.3rem 0;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  display: inline-block;
+  font-family: var(--code-font);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+/* Desktop nav */
+@media (min-width: 768px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+    padding: 0.4rem 0;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .nav-links li {
+    margin: 0;
+  }
+}
+
+/* =======================================
+   MAIN LAYOUT
+======================================= */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.4rem 1.25rem 3.5rem;
+}
+
+/* =======================================
+   SECTION CARDS (DASHBOARD VIBE)
+======================================= */
+.section-card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.8rem 1.7rem;
+  margin-bottom: 1.6rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--card-border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* little vertical accent bar on the left */
+.section-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.6rem;
+  bottom: 1.6rem;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent),
+    var(--accent-strong)
+  );
+  opacity: 0.7;
+}
+
+.section-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  font-size: 1.1rem;
+  color: var(--text);
+  font-family: var(--code-font);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-card p {
+  margin: 0.4rem 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.section-card ul {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+
+.section-card li {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* =======================================
+   PROJECTS GRID
+======================================= */
+.projects-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project-card {
+  border: 1px solid var(--card-border);
+  border-radius: 0.9rem;
+  padding: 1.2rem 1.2rem 1.3rem;
+  background: var(--bg-alt);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.7);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  /* hover accent at top */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    var(--accent-strong),
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.project-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.02rem;
+  color: var(--text);
+}
+
+.project-card p {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.9);
+  border-color: rgba(34, 197, 94, 0.85); /* green-500-ish */
+}
+
+.tags {
+  margin-bottom: 0.6rem;
+}
+
+.tags span {
+  display: inline-block;
+  font-size: 0.73rem;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  margin-right: 0.25rem;
+  margin-top: 0.25rem;
+  font-family: var(--code-font);
+}
+
+.project-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+/* =======================================
+   DOWNLOAD CV CARD
+======================================= */
+.download-card {
+  text-align: center;
+}
+
+.download-card p {
+  margin-bottom: 0.9rem;
+}
+
+/* =======================================
+   FORM
+======================================= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+form label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.95rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  background: rgba(15, 23, 42, 0.6);
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background 0.2s ease, color 0.2s ease;
+}
+
+body:not(.dark) form input,
+body:not(.dark) form textarea {
+  background: #ffffff;
+}
+
+form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.8);
+}
+
+/* =======================================
+   LINKS
+======================================= */
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =======================================
+   RESPONSIVE
+======================================= */
+@media (min-width: 720px) {
+  .hero {
+    padding: 4.8rem 1.5rem 4rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .section-card {
+    padding: 1.4rem 1.25rem;
+  }
+
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+}
