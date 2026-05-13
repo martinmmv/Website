@@ -3,234 +3,513 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mmvdatascience – Martin Milon</title>
+  <title>Martin Milon — Data Scientist</title>
+  <meta name="description" content="Martin Milon, Data Scientist. M.S. Data Science, NYIT. Economics, machine learning, public policy." />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- PAGE-SPECIFIC ---- */
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100svh - var(--nav-h));
+      border-bottom: 1px solid var(--rule);
+    }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } }
+
+    .hero-left {
+      padding: 5rem 3rem 4rem;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @media (max-width: 768px) {
+      .hero-left { padding: 3rem 1.5rem; border-right: none; border-bottom: 1px solid var(--rule); }
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 6vw, 6.5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.8s 0.15s both;
+    }
+    .hero-name em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-3);
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2rem 0;
+      padding: 1rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      animation: fadeUp 0.8s 0.25s both;
+    }
+    .hero-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-3);
+    }
+    .hero-title-sep { color: var(--rule); font-size: 1rem; }
+
+    .hero-statement {
+      font-size: 1.05rem;
+      color: var(--ink-3);
+      line-height: 1.8;
+      max-width: 38rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s 0.35s both;
+    }
+    .hero-statement strong { color: var(--ink); font-weight: 500; }
+
+    .hero-cta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.45s both;
+    }
+
+    /* RIGHT PANEL */
+    .hero-right {
+      background: var(--cream-2);
+      padding: 4rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    @media (max-width: 768px) { .hero-right { padding: 2.5rem 1.5rem; } }
+
+    .hero-right-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-4);
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--rule);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s 0.2s both;
+    }
+    .stat-cell {
+      padding: 1.25rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .stat-cell:nth-child(2n) { border-right: none; }
+    .stat-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+    .stat-val {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .stat-key {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+    }
+
+    .skills-block {
+      border: 1px solid var(--rule);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s 0.3s both;
+    }
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .skills-row:last-child { border-bottom: none; }
+    .skills-row-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-4);
+      width: 80px;
+      flex-shrink: 0;
+      padding-top: 0.15rem;
+    }
+    .skills-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      flex: 1;
+    }
+    .skill-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-2);
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 0.18rem 0.5rem;
+      border-radius: 1px;
+    }
+
+    /* FEATURED WORK preview */
+    .preview-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .preview-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--ink);
+    }
+    .preview-head h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+    @media (max-width: 900px) { .preview-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .preview-grid { grid-template-columns: 1fr; } }
+
+    .preview-card {
+      padding: 1.75rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.15s;
+    }
+    .preview-card:hover { background: var(--amber-lt); }
+    .preview-card:nth-child(3n) { border-right: none; }
+    @media (max-width: 900px) {
+      .preview-card:nth-child(3n) { border-right: 1px solid var(--rule); }
+      .preview-card:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 540px) {
+      .preview-card { border-right: none !important; }
+    }
+
+    .card-type {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .card-desc {
+      font-size: 0.86rem;
+      color: var(--ink-3);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-arrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      margin-top: 0.5rem;
+      transition: color 0.15s, letter-spacing 0.2s;
+    }
+    .preview-card:hover .card-arrow { color: var(--amber); letter-spacing: 0.18em; }
+
+    /* CTA BAND */
+    .cta-band {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--ink-2);
+    }
+    .cta-band h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 700;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .cta-band p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2rem;
+      max-width: 32rem;
+      margin-inline: auto;
+    }
+    .cta-band .btn-amber { display: inline-flex; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-  <!-- ========================= -->
-  <!-- Hero Header -->
-  <!-- ========================= -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>Martin Milon</h1>
-      <h2>Data Science, Economics & Political Science</h2>
 
-      <div class="hero-actions">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="cv_martin_milon_2025.pdf" class="btn-secondary" download>Download CV (PDF)</a>
-      </div>
-
-      <button id="theme-toggle" class="theme-toggle">🌙 Dark mode</button>
-    </div>
-  </header>
-
-  <!-- ========================= -->
-  <!-- Navigation -->
-  <!-- ========================= -->
-  <nav class="navbar">
-    <button id="menu-toggle" class="menu-toggle">☰ Menu</button>
-    <ul id="nav-links" class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mmv">MMV</span><span class="nav-logo-data">DATA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Hire me</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html">Hire me</a>
+    </nav>
   </nav>
 
-  <!-- ========================= -->
-  <!-- Main Content -->
-  <!-- ========================= -->
-  <main class="container">
-
-    <!-- About -->
-    <section id="about" class="section-card">
-      <h2>About Me</h2>
-      <p>
-        I am currently pursuing an M.S. in Data Science at the New York Institute of Technology, and I hold a B.A. in Economics and Political Science from Stony Brook University. My main interests are
-        machine learning and data analysis.
-      </p>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section-card">
-      <h2>Projects</h2>
-
-      <div class="projects-grid">
-
-        <article class="project-card">
-          <h3>Fraud Detection (ML)</h3>
-          <p>
-            Supervised classification project using Python to identify potentially fraudulent transactions.
-            Includes data cleaning, feature engineering, and model comparison (Logistic Regression, Random Forest).
-          </p>
-          <div class="tags">
-            <span>Python</span><span>scikit-learn</span><span>Fraud Analytics</span>
-          </div>
-          <a href="https://github.com/martinmmv/Fraud-Detection" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- UN Refugee Data Finder -->
-        <article class="project-card">
-          <h3>UN Refugee Data Finder</h3>
-          <p>
-            Exploring data from the United Nations Refugee Data Finder tool. Includes country-level analysis,
-            regional trends, and data cleaning for migration and asylum indicators.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>Pandas</span><span>UNHCR</span>
-          </div>
-          <a href="https://github.com/martinmmv/UN-Refugee-Data-Finder" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- World Bank Population Data -->
-        <article class="project-card">
-          <h3>World Bank Population Data</h3>
-          <p>
-            Exploring global population trends using World Bank data. Includes indicators, transformations, and
-            visualization of demographic patterns across regions.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>World Bank API</span><span>Data Analysis</span>
-          </div>
-          <a href="https://github.com/martinmmv/World-Bank-Population-Data" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- Wave Data Cluster Analysis -->
-        <article class="project-card">
-          <h3>Wave Data Cluster Analysis</h3>
-          <p>
-            Compared K-Means, Hierarchical, and DBSCAN clustering using Silhouette Score, Adjusted Rand Index (ARI), 
-            and Normalized Mutual Information (NMI).
-          </p>
-          <div class="tags">
-            <span>Python</span><span>Clustering</span><span>scikit-learn</span>
-          </div>
-          <a href="https://github.com/martinmmv/Wave-Data-Cluster-Analysis" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- NYC Limited English Proficient Data -->
-        <article class="project-card">
-          <h3>NYC LEP Population Data</h3>
-          <p>
-            Analysis of Census-based data on over 1.7 million limited English proficient (LEP) residents.
-            Includes demographic segmentation and language-access insights.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>Census ACS</span><span>Data Analysis</span>
-          </div>
-          <a href="https://github.com/martinmmv/NYC-Limited-English-Proficient-Data" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- Zillow Home Value Index -->
-        <article class="project-card">
-          <h3>Zillow Home Value Index (ZHVI)</h3>
-          <p>
-            Exploring the Zillow Home Value Index (ZHVI), analyzing typical home values and market changes across
-            regions and housing types using time-series trends.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>Time Series</span><span>Zillow</span>
-          </div>
-          <a href="https://github.com/martinmmv/Zillow-Home-Value-Index" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- United Nations M49 Codes -->
-        <article class="project-card">
-          <h3>United Nations M49 Regions</h3>
-          <p>
-            Standard country and area codes (M49) used for statistical analysis and geographic classification.
-            Includes region mapping and categorical encoding for ML workflows.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>UN Statistics</span><span>Data Cleaning</span>
-          </div>
-          <a href="https://github.com/martinmmv/United-Nations-M49" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-
-        <!-- NYC DHS Shelter Data -->
-        <article class="project-card">
-          <h3>NYC DHS Shelter Data</h3>
-          <p>
-            Analysis of data from the NYC DHS Shelter System, including trends, occupancy breakdowns, and
-            visualization of demographic patterns using open-data sources.
-          </p>
-          <div class="tags">
-            <span>Python</span><span>NYC Open Data</span><span>Data Analysis</span>
-          </div>
-          <a href="https://github.com/martinmmv/NYC-DHS-Shelter-Data" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
-        </article>
-  
-        <!-- You can add more project-card blocks here -->
-      </div>
-    </section>
-
-    <!-- Contact Info -->
-    <section id="contact" class="section-card">
-      <h2>Contact</h2>
-      <p>Email:
-        <a href="mailto:martinmilonvelarde@gmail.com">martinmilonvelarde@gmail.com</a>
-      </p>
-      <p>LinkedIn:
-        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">linkedin.com/in/martin-milon/</a>
-      </p>
-      <p>GitHub:
-        <a href="https://github.com/martinmmv" target="_blank">github.com/martinmmv</a>
-      </p>
-    </section>
-
-    <!-- Download CV -->
-    <section id="download" class="section-card download-card">
-      <h2>CV</h2>
-      <p>You can download a full version of my curriculum vitae here:</p>
-      <a href="cv_martin_milon_2025.pdf" download class="btn-primary">
-        Download CV (PDF)
-      </a>
-    </section>
-
-    <!-- Contact Form (Netlify) -->
-    <section id="form" class="section-card">
-      <h2>Contact Me</h2>
-      <form name="contact" method="POST" action="/thank-you.html"
-            data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden>
-          <label>Don’t fill this out: <input name="bot-field" /></label>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="hero-dot"></div>
+          <span class="section-label">Open to roles in data science &amp; analytics engineering</span>
+        </div>
+        <h1 class="hero-name">Martin<br><em>Milon</em></h1>
+        <div class="hero-title-row">
+          <span class="hero-title">Data Scientist</span>
+          <span class="hero-title-sep">·</span>
+          <span class="hero-title">Economist</span>
+          <span class="hero-title-sep">·</span>
+          <span class="hero-title">New York</span>
+        </div>
+        <p class="hero-statement">
+          I build <strong>machine learning systems</strong> and analytical tools where rigorous methods meet messy real-world problems — immigration law, humanitarian operations, housing markets, and public policy.
         </p>
+      </div>
+      <div class="hero-cta">
+        <a href="projects.html" class="btn btn-solid">View work</a>
+        <a href="about.html" class="btn btn-outline">About me</a>
+        <a href="cv_martin_milon.pdf" download class="btn btn-outline">Download CV</a>
+      </div>
+    </div>
 
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Your name" required />
+    <div class="hero-right">
+      <p class="hero-right-label">At a glance</p>
 
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="name@example.com" required />
+      <div class="stat-grid">
+        <div class="stat-cell">
+          <span class="stat-val">M.S.</span>
+          <span class="stat-key">Data Science · NYIT</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-val">3+</span>
+          <span class="stat-key">Years in the field</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-val">11</span>
+          <span class="stat-key">GitHub projects</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-val">2</span>
+          <span class="stat-key">Languages · EN / ES</span>
+        </div>
+      </div>
 
-        <label for="message">Message</label>
-        <textarea name="message" id="message" placeholder="How can I help you?" required></textarea>
+      <div class="skills-block">
+        <div class="skills-row">
+          <span class="skills-row-label">Python</span>
+          <div class="skills-pills">
+            <span class="skill-pill">Pandas</span>
+            <span class="skill-pill">NumPy</span>
+            <span class="skill-pill">scikit-learn</span>
+            <span class="skill-pill">Matplotlib</span>
+            <span class="skill-pill">Seaborn</span>
+            <span class="skill-pill">Flask</span>
+          </div>
+        </div>
+        <div class="skills-row">
+          <span class="skills-row-label">Data</span>
+          <div class="skills-pills">
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">PostgreSQL</span>
+            <span class="skill-pill">Excel</span>
+            <span class="skill-pill">ETL</span>
+          </div>
+        </div>
+        <div class="skills-row">
+          <span class="skills-row-label">Other</span>
+          <div class="skills-pills">
+            <span class="skill-pill">R</span>
+            <span class="skill-pill">D3.js</span>
+            <span class="skill-pill">Databricks</span>
+            <span class="skill-pill">Weka</span>
+            <span class="skill-pill">Git</span>
+          </div>
+        </div>
+      </div>
 
-        <button type="submit" class="btn-primary">Send</button>
-      </form>
-    </section>
+      <p class="section-label" style="margin-bottom:0.75rem">Background</p>
+      <p style="font-size:0.88rem;color:var(--ink-3);line-height:1.7;">
+        B.A. Economics &amp; Political Science, Stony Brook University · Former paralegal in immigration law · Humanitarian casework in NYC shelter system
+      </p>
+    </div>
+  </section>
 
-  </main>
+  <!-- FEATURED WORK -->
+  <section class="preview-section">
+    <div class="preview-head">
+      <h2>Featured work</h2>
+      <a href="projects.html" class="btn btn-outline" style="font-size:0.72rem">All projects →</a>
+    </div>
+    <div class="preview-grid">
 
-  <!-- ========================= -->
-  <!-- JavaScript -->
-  <!-- ========================= -->
+      <a class="preview-card reveal" href="https://github.com/martinmmv/Instacart-Reorder-Prediction" target="_blank">
+        <span class="card-type">Supervised ML</span>
+        <span class="card-title">Instacart Reorder Prediction</span>
+        <p class="card-desc">LightGBM pipeline on 3M+ orders. ROC-AUC 0.971. Deployed as Flask REST API.</p>
+        <span class="card-arrow">GitHub →</span>
+      </a>
+
+      <a class="preview-card reveal" style="--d:0.07s" href="https://github.com/martinmmv/Customer-Churn" target="_blank">
+        <span class="card-type">Supervised ML</span>
+        <span class="card-title">Customer Churn</span>
+        <p class="card-desc">SVM pipeline (F1 0.84) with AdaBoost/Bagging ensembles and full deployment plan.</p>
+        <span class="card-arrow">GitHub →</span>
+      </a>
+
+      <a class="preview-card reveal" style="--d:0.14s" href="https://github.com/martinmmv/Political-Crisis-Peru" target="_blank">
+        <span class="card-type">Data Visualization</span>
+        <span class="card-title">Political Crisis in Peru</span>
+        <p class="card-desc">Visual analysis of presidential instability in Peru since 1980.</p>
+        <span class="card-arrow">GitHub →</span>
+      </a>
+
+      <a class="preview-card reveal" style="--d:0.21s" href="https://github.com/martinmmv/Macroeconomic-Accounting" target="_blank">
+        <span class="card-type">Economics</span>
+        <span class="card-title">Macroeconomic Accounting</span>
+        <p class="card-desc">Exploring public debt, private financial wealth, and sectoral balances.</p>
+        <span class="card-arrow">GitHub →</span>
+      </a>
+
+      <a class="preview-card reveal" style="--d:0.28s" href="https://github.com/martinmmv/YouTube-Data-Pipeline" target="_blank">
+        <span class="card-type">Data Engineering</span>
+        <span class="card-title">YouTube Data Pipeline</span>
+        <p class="card-desc">ETL pipeline collecting daily snapshots via YouTube API v3. 98% quota reduction.</p>
+        <span class="card-arrow">GitHub →</span>
+      </a>
+
+      <a class="preview-card reveal" style="--d:0.35s" href="projects.html">
+        <span class="card-type">More</span>
+        <span class="card-title">6+ additional projects</span>
+        <p class="card-desc">Clustering benchmarks, housing market analysis, census data, refugee statistics, and more.</p>
+        <span class="card-arrow">See all →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <h2>Let's work together.</h2>
+    <p>Open to full-time roles, freelance analysis, and research collaborations.</p>
+    <a href="contact.html" class="btn btn-amber">Get in touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="f-logo">MMV<span>DATA</span></span>
+        <p>Data science at the intersection of economics, law, and public policy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <a href="https://github.com/martinmmv" target="_blank">GitHub</a>
+        <a href="cv_martin_milon.pdf" download>Download CV</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:martinmilonvelarde@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">LinkedIn</a>
+        <a href="https://mmvdata.com">mmvdata.com</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2025 Martin Milon · mmvdata.com</span>
+      <span>Bay Shore, NY</span>
+    </div>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>

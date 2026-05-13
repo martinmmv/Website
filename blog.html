@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — MMV Data</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 4rem 2rem 3.5rem;
+      border-bottom: 2px solid var(--amber);
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .page-header .section-label-amber { display: block; margin-bottom: 1rem; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .page-title em { font-style: italic; color: var(--amber); }
+
+    .blog-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0;
+      padding: 0 2rem;
+    }
+    @media (max-width: 900px) { .blog-layout { grid-template-columns: 1fr; } }
+
+    /* POSTS */
+    .posts-col {
+      padding: 3rem 3rem 4rem 0;
+      border-right: 1px solid var(--rule);
+    }
+    @media (max-width: 900px) {
+      .posts-col { border-right: none; padding: 3rem 0 2rem; }
+    }
+
+    .coming-soon-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--amber-lt);
+      border: 1px solid var(--amber);
+      border-left: 3px solid var(--amber);
+      margin-bottom: 2.5rem;
+    }
+    .csb-icon {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+    .csb-body p {
+      font-size: 0.88rem;
+      color: var(--ink-3);
+      line-height: 1.6;
+    }
+    .csb-body strong { color: var(--ink); }
+
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1.5rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+    .post-item:first-child { border-top: 1px solid var(--rule); }
+    .post-item:hover { background: var(--amber-lt); margin: 0 -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+
+    .post-date-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-top: 0.15rem;
+    }
+    .post-month {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+    }
+    .post-status {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+    }
+    .post-draft {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      background: var(--cream-3);
+      padding: 0.1rem 0.35rem;
+      border-radius: 1px;
+      align-self: flex-start;
+    }
+
+    .post-body-col {}
+    .post-cat {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+    .post-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .post-excerpt {
+      font-size: 0.87rem;
+      color: var(--ink-3);
+      line-height: 1.65;
+    }
+    .post-read {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      margin-top: 0.6rem;
+    }
+
+    /* SIDEBAR */
+    .blog-sidebar {
+      padding: 3rem 0 4rem 2.5rem;
+    }
+    @media (max-width: 900px) {
+      .blog-sidebar { padding: 2rem 0 3rem; border-top: 1px solid var(--rule); }
+    }
+
+    .sb-block { margin-bottom: 2.5rem; }
+    .sb-block h3 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-4);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* Newsletter */
+    .nl-form { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .nl-input {
+      background: var(--cream-2);
+      border: 1px solid var(--rule);
+      padding: 0.65rem 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 2px;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .nl-input::placeholder { color: var(--ink-4); }
+    .nl-input:focus { border-color: var(--amber); }
+    .nl-btn {
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      padding: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .nl-btn:hover { background: var(--amber); }
+    .nl-sub { font-size: 0.8rem; color: var(--ink-4); line-height: 1.6; margin-bottom: 0.75rem; }
+
+    /* Topics */
+    .topic-list { display: flex; flex-direction: column; gap: 0; }
+    .topic-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--cream-3);
+      font-size: 0.86rem;
+      color: var(--ink-3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .topic-item:hover { color: var(--amber); }
+    .topic-item:last-child { border-bottom: none; }
+    .topic-count {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--ink-4);
+      background: var(--cream-3);
+      padding: 0.1rem 0.4rem;
+    }
+
+    /* D3.js pitch */
+    .d3-block {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    .d3-block p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .d3-block a {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mmv">MMV</span><span class="nav-logo-data">DATA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Hire me</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <span class="section-label-amber">Blog</span>
+      <h1 class="page-title">MMV<br><em>Data</em></h1>
+    </div>
+  </div>
+
+  <div class="blog-layout">
+    <div class="posts-col">
+
+      <div class="coming-soon-banner">
+        <span class="csb-icon">◎</span>
+        <div class="csb-body">
+          <p><strong>First posts dropping soon.</strong> The blog covers machine learning in practice, economics data, and what working with real-world legal and humanitarian datasets actually looks like. Subscribe to get notified.</p>
+        </div>
+      </div>
+
+      <div class="post-list">
+
+        <a class="post-item reveal" href="#">
+          <div class="post-date-col">
+            <span class="post-month">Jun 2025</span>
+            <span class="post-draft">Draft</span>
+          </div>
+          <div class="post-body-col">
+            <p class="post-cat">Machine Learning</p>
+            <h2 class="post-title">Why Fraud Models Fail in Production — and What to Do About It</h2>
+            <p class="post-excerpt">Class imbalance is the first problem you read about. Concept drift is the one that gets you in production. Here's a field-level breakdown of both.</p>
+            <p class="post-read">~8 min read</p>
+          </div>
+        </a>
+
+        <a class="post-item reveal" style="--d:0.08s" href="#">
+          <div class="post-date-col">
+            <span class="post-month">Jun 2025</span>
+            <span class="post-draft">Draft</span>
+          </div>
+          <div class="post-body-col">
+            <p class="post-cat">Economics</p>
+            <h2 class="post-title">What Sectoral Balances Actually Tell You About Public Debt</h2>
+            <p class="post-excerpt">The accounting identity behind macroeconomic debates most economists skip in public commentary.</p>
+            <p class="post-read">~6 min read</p>
+          </div>
+        </a>
+
+        <a class="post-item reveal" style="--d:0.16s" href="#">
+          <div class="post-date-col">
+            <span class="post-month">May 2025</span>
+            <span class="post-draft">Draft</span>
+          </div>
+          <div class="post-body-col">
+            <p class="post-cat">Data Engineering</p>
+            <h2 class="post-title">Building a Quota-Efficient YouTube Data Pipeline</h2>
+            <p class="post-excerpt">How I reduced YouTube API v3 quota consumption by 98% without sacrificing coverage — the design decisions behind the pipeline.</p>
+            <p class="post-read">~10 min read</p>
+          </div>
+        </a>
+
+        <a class="post-item reveal" style="--d:0.24s" href="#">
+          <div class="post-date-col">
+            <span class="post-month">May 2025</span>
+            <span class="post-draft">Draft</span>
+          </div>
+          <div class="post-body-col">
+            <p class="post-cat">Policy</p>
+            <h2 class="post-title">Language Access and Data: What the Census Won't Show You Directly</h2>
+            <p class="post-excerpt">1.7 million people in NYC speak English "less than very well." Here's how to use Census ACS microdata to see what that means geographically.</p>
+            <p class="post-read">~7 min read</p>
+          </div>
+        </a>
+
+        <a class="post-item reveal" style="--d:0.32s" href="#">
+          <div class="post-date-col">
+            <span class="post-month">Apr 2025</span>
+            <span class="post-draft">Draft</span>
+          </div>
+          <div class="post-body-col">
+            <p class="post-cat">Visualization</p>
+            <h2 class="post-title">Presidential Instability in Peru: A Data-Driven History</h2>
+            <p class="post-excerpt">Six presidents in five years. Peru has one of the most volatile executive branches in the Western Hemisphere. Here's what the data looks like.</p>
+            <p class="post-read">~5 min read</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="blog-sidebar">
+
+      <div class="sb-block reveal">
+        <h3>Newsletter</h3>
+        <p class="nl-sub">New posts on ML, economics, and policy data — no schedule, no fluff.</p>
+        <form class="nl-form" name="newsletter" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="newsletter">
+          <input type="email" name="email" placeholder="your@email.com" required class="nl-input">
+          <button type="submit" class="nl-btn">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="sb-block reveal" style="--d:0.1s">
+        <h3>Topics</h3>
+        <div class="topic-list">
+          <a href="#" class="topic-item">Machine Learning <span class="topic-count">2</span></a>
+          <a href="#" class="topic-item">Data Engineering <span class="topic-count">1</span></a>
+          <a href="#" class="topic-item">Economics <span class="topic-count">1</span></a>
+          <a href="#" class="topic-item">Policy &amp; Census <span class="topic-count">1</span></a>
+          <a href="#" class="topic-item">Visualization <span class="topic-count">1</span></a>
+        </div>
+      </div>
+
+      <div class="sb-block reveal" style="--d:0.2s">
+        <h3>D3.js Visualizations</h3>
+        <div class="d3-block">
+          <p>Interactive data visualizations are coming to MMV Data — built with D3.js directly in the browser.</p>
+          <a href="contact.html">Request a topic →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="f-logo">MMV<span>DATA</span></span>
+        <p>Data science at the intersection of economics, law, and public policy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <a href="https://github.com/martinmmv" target="_blank">GitHub</a>
+        <a href="cv_martin_milon.pdf" download>Download CV</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:martinmilonvelarde@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2025 Martin Milon · mmvdata.com</span>
+      <span>Bay Shore, NY</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

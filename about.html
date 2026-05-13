@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Martin Milon</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 4rem 2rem 3.5rem;
+      border-bottom: 2px solid var(--amber);
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .page-header .section-label-amber { margin-bottom: 1rem; display: block; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .page-title em { font-style: italic; color: var(--amber); }
+
+    .about-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0;
+      padding: 0 2rem;
+    }
+    @media (max-width: 768px) { .about-layout { grid-template-columns: 1fr; } }
+
+    .about-main {
+      border-right: 1px solid var(--rule);
+      padding: 4rem 3rem 4rem 0;
+    }
+    @media (max-width: 768px) { .about-main { border-right: none; padding: 3rem 0 2rem; } }
+
+    .about-main h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about-main p {
+      font-size: 1rem;
+      color: var(--ink-3);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+    .about-main p strong { color: var(--ink); font-weight: 500; }
+
+    .timeline {
+      margin-top: 3rem;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.25rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .timeline-item:first-child { border-top: 1px solid var(--rule); }
+    .t-date {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-4);
+      padding-top: 0.2rem;
+    }
+    .t-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .t-org {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .t-desc {
+      font-size: 0.87rem;
+      color: var(--ink-3);
+      line-height: 1.7;
+    }
+
+    .about-sidebar {
+      padding: 4rem 0 4rem 2.5rem;
+    }
+    @media (max-width: 768px) {
+      .about-sidebar {
+        padding: 2rem 0 3rem;
+        border-top: 1px solid var(--rule);
+      }
+    }
+
+    .sidebar-section { margin-bottom: 2.5rem; }
+    .sidebar-section h3 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-4);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .edu-entry {
+      margin-bottom: 1.25rem;
+    }
+    .edu-degree {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      color: var(--ink-3);
+      letter-spacing: 0.04em;
+    }
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .awards-list { list-style: none; }
+    .awards-list li {
+      font-size: 0.86rem;
+      color: var(--ink-3);
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--cream-3);
+      line-height: 1.5;
+    }
+    .awards-list li:last-child { border-bottom: none; }
+    .awards-list strong { color: var(--ink); font-weight: 500; display: block; }
+
+    .contact-quick a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--cream-3);
+      text-decoration: none;
+      font-size: 0.85rem;
+      color: var(--ink-3);
+      transition: color 0.15s;
+    }
+    .contact-quick a:hover { color: var(--amber); }
+    .contact-quick a:last-child { border-bottom: none; }
+    .cq-icon {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      width: 22px;
+      color: var(--ink-4);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mmv">MMV</span><span class="nav-logo-data">DATA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Hire me</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <span class="section-label-amber">About</span>
+      <h1 class="page-title">Martin<br><em>Milon</em></h1>
+    </div>
+  </div>
+
+  <div class="about-layout">
+    <div class="about-main">
+
+      <h2>Background</h2>
+      <p>
+        I'm a data scientist based in New York with a background that doesn't fit neatly into a single box —
+        and I think that's the point. My career started in immigration law, moved through humanitarian emergency
+        response, and has converged on machine learning and analytical systems.
+      </p>
+      <p>
+        That path gave me something most data scientists don't have: genuine fluency in the domains where data
+        actually matters. I've worked with the case files, the clients, the constraints. When I build a model now,
+        I understand what's at stake if it's wrong.
+      </p>
+      <p>
+        I hold an <strong>M.S. in Data Science from the New York Institute of Technology</strong> (Summa Cum Laude)
+        and a <strong>B.A. in Economics &amp; Political Science from Stony Brook University</strong>. My academic
+        work focuses on supervised learning, clustering, and data engineering — with a particular interest in
+        applications to economics, public policy, and legal operations.
+      </p>
+      <p>
+        I'm bilingual in English and Spanish, which has mattered in every professional context I've worked in.
+      </p>
+
+      <div class="timeline reveal">
+        <h2 style="margin-top:2rem">Experience</h2>
+
+        <div class="timeline-item">
+          <span class="t-date">Jun 2025 – Feb 2026</span>
+          <div>
+            <div class="t-title">Paralegal</div>
+            <div class="t-org">McBean Law, PLLC · White Plains, NY</div>
+            <p class="t-desc">Managed immigration caseloads before USCIS and immigration courts. Built a relational case management dashboard in Excel to track deadlines, case status, hearings, and document submissions across a diverse caseload.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="t-date">Mar 2024 – Jun 2025</span>
+          <div>
+            <div class="t-title">Senior Caseworker</div>
+            <div class="t-org">Cherokee Federal · Roosevelt Hotel HERRC, NYC</div>
+            <p class="t-desc">Managed a complex humanitarian caseload at a large emergency response center. Built an optimization model for case assignment and resource allocation under legal, demographic, and operational constraints.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="t-date">May 2022 – Jan 2024</span>
+          <div>
+            <div class="t-title">Paralegal</div>
+            <div class="t-org">Law Office of Alexandra Mayen Rivera, P.C. · Huntington, NY</div>
+            <p class="t-desc">Managed asylum, removal defense, FOIA, and prosecutorial discretion caseloads before immigration courts, the Board of Immigration Appeals, USCIS, CBP, and DHS.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="about-sidebar">
+
+      <div class="sidebar-section reveal">
+        <h3>Education</h3>
+        <div class="edu-entry">
+          <div class="edu-degree">M.S. Data Science</div>
+          <div class="edu-school">New York Institute of Technology</div>
+          <div class="edu-year">May 2025 · Summa Cum Laude</div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-degree">B.A. Economics &amp; Political Science</div>
+          <div class="edu-school">Stony Brook University</div>
+          <div class="edu-year">December 2020</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section reveal" style="--d:0.1s">
+        <h3>Awards</h3>
+        <ul class="awards-list">
+          <li><strong>Summa Cum Laude</strong>NYIT · May 2025</li>
+          <li><strong>Community Service Award</strong>Stony Brook University · May 2018</li>
+          <li><strong>Certificate of Appreciation</strong>Physics Teaching Assistant · Aug 2017</li>
+          <li><strong>Outstanding Academic Achievement</strong>Physics · Aug 2016</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section reveal" style="--d:0.2s">
+        <h3>Get in touch</h3>
+        <div class="contact-quick">
+          <a href="mailto:martinmilonvelarde@gmail.com">
+            <span class="cq-icon">@</span>martinmilonvelarde@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">
+            <span class="cq-icon">in</span>linkedin.com/in/martin-milon
+          </a>
+          <a href="https://github.com/martinmmv" target="_blank">
+            <span class="cq-icon">gh</span>github.com/martinmmv
+          </a>
+          <a href="cv_martin_milon.pdf" download>
+            <span class="cq-icon">↓</span>Download CV (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="f-logo">MMV<span>DATA</span></span>
+        <p>Data science at the intersection of economics, law, and public policy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <a href="https://github.com/martinmmv" target="_blank">GitHub</a>
+        <a href="cv_martin_milon.pdf" download>Download CV</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:martinmilonvelarde@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2025 Martin Milon · mmvdata.com</span>
+      <span>Bay Shore, NY</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

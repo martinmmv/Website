@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Martin Milon</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 4rem 2rem 3.5rem;
+      border-bottom: 2px solid var(--amber);
+    }
+    .page-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .page-header .section-label-amber { display: block; margin-bottom: 1rem; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .page-title em { font-style: italic; color: var(--amber); }
+    .header-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 28rem;
+      line-height: 1.6;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink-4);
+      margin-right: 0.5rem;
+    }
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--ink-3);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+    }
+    .filter-btn.active { background: var(--amber); border-color: var(--amber); color: #fff; }
+
+    /* GITHUB STATUS */
+    .github-status {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+    .gh-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+    }
+    .gh-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+
+    /* PROJECT GRID */
+    .projects-main {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+    @media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .projects-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+      position: relative;
+    }
+    .proj-card:hover { background: var(--amber-lt); }
+    .proj-card[data-hidden="true"] { display: none; }
+    /* border cleanup */
+    .projects-grid .proj-card:nth-child(3n) { border-right: none; }
+    @media (max-width: 900px) {
+      .projects-grid .proj-card:nth-child(3n) { border-right: 1px solid var(--rule); }
+      .projects-grid .proj-card:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 540px) {
+      .projects-grid .proj-card { border-right: none !important; }
+    }
+
+    .proj-num {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      position: absolute;
+      top: 1.1rem;
+      right: 1.25rem;
+    }
+    .proj-type {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+      margin-bottom: 0.65rem;
+    }
+    .proj-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.65rem;
+    }
+    .proj-desc {
+      font-size: 0.86rem;
+      color: var(--ink-3);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+    .proj-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ink-4);
+      border: 1px solid var(--cream-3);
+      padding: 0.15rem 0.45rem;
+      background: var(--cream-2);
+    }
+    .proj-link {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      margin-top: auto;
+      transition: color 0.15s, letter-spacing 0.2s;
+    }
+    .proj-card:hover .proj-link { color: var(--amber); letter-spacing: 0.16em; }
+
+    /* Loading state */
+    .loading-row {
+      grid-column: 1 / -1;
+      padding: 3rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      text-transform: uppercase;
+    }
+
+    /* AUTO NOTE */
+    .auto-note {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .auto-note-icon {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+    .auto-note p {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-4);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .auto-note a { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mmv">MMV</span><span class="nav-logo-data">DATA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta">Hire me</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <span class="section-label-amber">Projects</span>
+        <h1 class="page-title">Work &<br><em>Analysis</em></h1>
+      </div>
+      <p class="header-sub">Pulled live from GitHub. Projects span machine learning, data engineering, economics, and policy analysis.</p>
+    </div>
+  </div>
+
+  <!-- GitHub auto note -->
+  <div class="auto-note">
+    <span class="auto-note-icon">⟳</span>
+    <p>
+      This page fetches your public repositories live from the
+      <a href="https://docs.github.com/en/rest/repos/repos" target="_blank">GitHub REST API</a>
+      on every page load — no manual update needed when you push a new repo.
+      Pinned &amp; curated metadata is layered on top.
+    </p>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="ml">Machine Learning</button>
+    <button class="filter-btn" data-filter="de">Data Engineering</button>
+    <button class="filter-btn" data-filter="econ">Economics</button>
+    <button class="filter-btn" data-filter="policy">Policy</button>
+  </div>
+
+  <!-- GitHub status -->
+  <div class="github-status">
+    <span class="gh-badge"><span class="gh-dot"></span> <span id="ghStatus">Loading repos from GitHub…</span></span>
+  </div>
+
+  <div class="projects-main">
+    <div class="projects-grid" id="projectsGrid">
+      <div class="loading-row">Fetching from github.com/martinmmv …</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="f-logo">MMV<span>DATA</span></span>
+        <p>Data science at the intersection of economics, law, and public policy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <a href="https://github.com/martinmmv" target="_blank">GitHub</a>
+        <a href="cv_martin_milon.pdf" download>Download CV</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:martinmilonvelarde@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/martin-milon/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2025 Martin Milon · mmvdata.com</span>
+      <span>Bay Shore, NY</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  /* -------------------------------------------------------
+     AUTO-FETCH PROJECTS FROM GITHUB API
+     No manual update needed — push a repo and it appears.
+     Curated metadata layered on top for richer display.
+  ------------------------------------------------------- */
+
+  // Curated metadata keyed by repo name
+  const META = {
+    'Instacart-Reorder-Prediction': {
+      type: 'Machine Learning', filter: 'ml',
+      desc: 'LightGBM pipeline on 3M+ orders from 200K+ Instacart users. ROC-AUC 0.971, F1 0.953. Deployed as Flask REST API.',
+      tags: ['Python','LightGBM','Flask','scikit-learn'],
+    },
+    'Customer-Churn': {
+      type: 'Machine Learning', filter: 'ml',
+      desc: 'CRISP-DM classification pipeline. SVM (F1 0.84) with AdaBoost/Bagging ensembles and a full deployment plan.',
+      tags: ['Python','SVM','AdaBoost','scikit-learn'],
+    },
+    'YouTube-Data-Pipeline': {
+      type: 'Data Engineering', filter: 'de',
+      desc: 'ETL pipeline collecting daily YouTube engagement snapshots via API v3. 98% quota reduction. PostgreSQL in BCNF.',
+      tags: ['Python','PostgreSQL','ETL','YouTube API'],
+    },
+    'Political-Crisis-Peru': {
+      type: 'Data Visualization', filter: 'policy',
+      desc: 'Visual analysis of presidential instability in Peru since 1980 using public political data.',
+      tags: ['Python','Visualization','Policy','LatAm'],
+    },
+    'Macroeconomic-Accounting': {
+      type: 'Economics', filter: 'econ',
+      desc: 'Exploring public debt, private financial wealth, and sectoral balances through data.',
+      tags: ['Python','Economics','Macro','Pandas'],
+    },
+    'Wave-Data-Cluster-Analysis': {
+      type: 'Unsupervised ML', filter: 'ml',
+      desc: 'K-Means, DBSCAN, and Hierarchical clustering benchmarked using Silhouette, ARI, and NMI on wave data.',
+      tags: ['Python','Clustering','scikit-learn'],
+    },
+    'Fraud-Detection': {
+      type: 'Machine Learning', filter: 'ml',
+      desc: 'Binary classification for fraud identification using Logistic Regression and Random Forest.',
+      tags: ['Python','scikit-learn','Classification'],
+    },
+    'UN-Refugee-Data-Finder': {
+      type: 'Policy / Humanitarian', filter: 'policy',
+      desc: 'Country-level analysis of UNHCR refugee and asylum data with regional trend exploration.',
+      tags: ['Python','UNHCR','Pandas','EDA'],
+    },
+    'World-Bank-Population-Data': {
+      type: 'Demographics', filter: 'policy',
+      desc: 'Global population indicators from the World Bank API with regional divergence analysis.',
+      tags: ['Python','World Bank API','Demographics'],
+    },
+    'NYC-Limited-English-Proficient-Data': {
+      type: 'Policy / Census', filter: 'policy',
+      desc: 'Analysis of 1.7M+ LEP residents in NYC from Census ACS data. Language access gap mapping.',
+      tags: ['Python','Census ACS','NYC','Policy'],
+    },
+    'Zillow-Home-Value-Index': {
+      type: 'Economics', filter: 'econ',
+      desc: 'Time-series analysis of typical home values and regional housing market trends using ZHVI.',
+      tags: ['Python','Time Series','Zillow','Housing'],
+    },
+    'United-Nations-M49': {
+      type: 'Data Reference', filter: 'policy',
+      desc: 'UN M49 standard geographic codes for region mapping and categorical encoding in ML pipelines.',
+      tags: ['Python','Geographic','Data Cleaning'],
+    },
+    'NYC-DHS-Shelter-Data': {
+      type: 'Policy / Social', filter: 'policy',
+      desc: 'Occupancy trends and demographic patterns in NYC\'s shelter system using DHS open data.',
+      tags: ['Python','NYC Open Data','Social Policy'],
+    },
+  };
+
+  const SKIP = ['martinmmv']; // skip README/profile repo
+
+  async function loadProjects() {
+    const grid = document.getElementById('projectsGrid');
+    const statusEl = document.getElementById('ghStatus');
+
+    try {
+      const res = await fetch('https://api.github.com/users/martinmmv/repos?sort=updated&per_page=30');
+      if (!res.ok) throw new Error('GitHub API error');
+      const repos = await res.json();
+
+      const filtered = repos.filter(r => !SKIP.includes(r.name) && !r.fork);
+      statusEl.textContent = `${filtered.length} public repositories · github.com/martinmmv`;
+
+      grid.innerHTML = '';
+      filtered.forEach((repo, i) => {
+        const m = META[repo.name] || {};
+        const type   = m.type  || 'Project';
+        const filter = m.filter || 'all';
+        const desc   = m.desc  || repo.description || 'View on GitHub for details.';
+        const tags   = m.tags  || (repo.language ? [repo.language] : []);
+        const num    = String(i + 1).padStart(2, '0');
+
+        const card = document.createElement('a');
+        card.href   = repo.html_url;
+        card.target = '_blank';
+        card.rel    = 'noopener';
+        card.className = 'proj-card reveal';
+        card.style.setProperty('--d', `${i * 0.04}s`);
+        card.dataset.filter = filter;
+
+        card.innerHTML = `
+          <span class="proj-num">${num}</span>
+          <span class="proj-type">${type}</span>
+          <span class="proj-title">${repo.name.replaceAll('-', ' ')}</span>
+          <p class="proj-desc">${desc}</p>
+          <div class="proj-tags">${tags.map(t => `<span class="proj-tag">${t}</span>`).join('')}</div>
+          <span class="proj-link">GitHub →</span>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Re-run scroll observer for new cards
+      initReveal();
+
+    } catch (e) {
+      statusEl.textContent = 'Could not reach GitHub API — showing curated list.';
+      loadFallback(grid);
+    }
+  }
+
+  function loadFallback(grid) {
+    grid.innerHTML = '';
+    const fallback = Object.entries(META);
+    fallback.forEach(([name, m], i) => {
+      const card = document.createElement('a');
+      card.href   = `https://github.com/martinmmv/${name}`;
+      card.target = '_blank';
+      card.rel    = 'noopener';
+      card.className = 'proj-card reveal';
+      card.style.setProperty('--d', `${i * 0.04}s`);
+      card.dataset.filter = m.filter;
+      card.innerHTML = `
+        <span class="proj-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="proj-type">${m.type}</span>
+        <span class="proj-title">${name.replaceAll('-',' ')}</span>
+        <p class="proj-desc">${m.desc}</p>
+        <div class="proj-tags">${m.tags.map(t => `<span class="proj-tag">${t}</span>`).join('')}</div>
+        <span class="proj-link">GitHub →</span>
+      `;
+      grid.appendChild(card);
+    });
+    initReveal();
+  }
+
+  // FILTER
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.proj-card').forEach(card => {
+        const match = f === 'all' || card.dataset.filter === f;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+
+  loadProjects();
+  </script>
+</body>
+</html>
